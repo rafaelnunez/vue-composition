@@ -14,7 +14,7 @@
     <p>This counter is {{ oddOrEven }}</p>
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input v-model="counterData.title" type="text" />
+      <input v-model="counterData.title" type="text" v-autofocus/>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ import {
   reactive,
   watch,
 } from "vue";
-
+import { vAutofocus } from "@/directives/vAutofocus"
 const header = "This is my amazing counter";
 
 const counterData = reactive({
