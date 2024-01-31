@@ -6,6 +6,7 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <nav>
     <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/modals">Modals</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
   </nav>
 

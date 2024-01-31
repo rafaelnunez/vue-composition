@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ header }}</h1>
+    <h1 ref="appTitleRef">{{ header }}</h1>
 
     <h3>{{ counterData.title }}:</h3>
 
@@ -14,7 +14,7 @@
     <p>This counter is {{ oddOrEven }}</p>
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input v-model="counterData.title" type="text" v-autofocus/>
+      <input v-model="counterData.title" type="text" v-autofocus />
     </div>
   </div>
 </template>
@@ -27,9 +27,13 @@ import {
   onUpdated,
   reactive,
   watch,
+  ref,
+  nextTick,
 } from "vue";
-import { vAutofocus } from "@/directives/vAutofocus"
+import { vAutofocus } from "@/directives/vAutofocus";
 const header = "This is my amazing counter";
+
+const appTitleRef = ref(null);
 
 const counterData = reactive({
   count: 0,
@@ -49,17 +53,23 @@ watch(
   }
 );
 
-const increaseCounter = (amount) => (counterData.count += amount);
+const increaseCounter = async (amount) => {
+  counterData.count += amount;
+
+  await nextTick()
+  console.log("Do something when counter has updated in the dom")
+
+};
 const decreaseCounter = (amount) => (counterData.count -= amount);
 
 onMounted(() => {
   console.log("OnMounted #1");
-})
+  console.log(`The app title is ${appTitleRef.value.offsetWidth} px wide.`);
+});
 
 onMounted(() => {
   console.log("OnMounted #2");
-})
-
+});
 </script>
 
 <style>
